@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="6dp"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|left"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/song_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            tools:text="21"/>
+
+        <ImageView
+            android:id="@+id/song_country_flag"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_plainflag_esp"/>
+
+        <TextView
+            android:id="@+id/song_country_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:minWidth="80dp"
+            android:maxWidth="80dp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            tools:text="Spain"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="3"
+        android:layout_marginLeft="16dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/song_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            tools:text="Baila el chiki chiki"/>
+
+        <TextView
+            android:id="@+id/song_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="normal"
+            tools:text="Rodolfo Chikilicuatre"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|bottom"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            android:tint="@color/colorAccent"
+            android:src="@drawable/ic_action_play"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginRight="6dp"
+            android:layout_gravity="bottom|right">
+
+            <TextView
+                android:id="@+id/song_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                tools:text="56"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
+                android:text="@string/points"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

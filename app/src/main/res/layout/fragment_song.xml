@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_song_fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.binarylemons.android.eurovisiontimemachine.EurovisionActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/Theme.AppCompat">
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:id="@+id/video_player_frame"
+            android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
+
+        <LinearLayout
+            android:id="@+id/song_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/song_edition_image"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_euroflag_ue"/>
+
+                    <TextView
+                        android:id="@+id/song_edition_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        tools:text="2017"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/song_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        tools:text="Baila el Chiki Chiki"/>
+
+                    <TextView
+                        android:id="@+id/song_artist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textStyle="normal"
+                        tools:text="Rodolfo Chikilicuatre"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/song_country_flag"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_plainflag_esp"/>
+
+                    <TextView
+                        android:id="@+id/song_country_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="8dp"
+                        android:minWidth="80dp"
+                        android:maxWidth="80dp"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        tools:text="Spain"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/divider"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/country_song_edition_image"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_euroflag_ue"/>
+
+                <TextView
+                    android:id="@+id/country_song_edition_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="normal"
+                    tools:text="2017"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/country_song_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="normal"
+                    tools:text="Baila el Chiki Chiki"/>
+
+                <TextView
+                    android:id="@+id/country_song_artist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textStyle="normal"
+                    tools:text="Rodolfo Chikilicuatre"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="32dp"
+                android:tint="@color/colorAccent"
+                android:src="@drawable/ic_action_play"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginRight="16dp"
+            android:layout_gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/country_song_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="normal"
+                tools:text="1"/>
+
+            <TextView
+                android:id="@+id/country_song_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:textStyle="normal"
+                tools:text="(216 puntos)"/>
+
+            <TextView
+                android:id="@+id/country_song_not_qualified"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:textStyle="normal"
+                tools:text="@string/did_not_qualify"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

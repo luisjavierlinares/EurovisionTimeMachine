@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@android:id/tabcontent"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/colorBackgroundList">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/editions_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="128dp"
+            android:clipToPadding="false">
+        </android.support.v7.widget.RecyclerView>
+
+        <ProgressBar
+            android:id="@+id/editions_progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+</FrameLayout>
