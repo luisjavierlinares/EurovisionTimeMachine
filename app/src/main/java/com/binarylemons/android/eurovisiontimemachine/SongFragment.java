@@ -47,6 +47,7 @@ public class SongFragment extends Fragment {
     @BindView(R.id.song_artist) TextView mArtist;
     @BindView(R.id.song_country_flag) ImageView mCountryFlag;
     @BindView(R.id.song_country_name) TextView mCountryName;
+    @BindView(R.id.song_lyrics) TextView mLyrics;
 
     private VideoFragment mVideoFragment;
 
@@ -114,6 +115,8 @@ public class SongFragment extends Fragment {
         EuroCountry country = mSong.getCountry();
         mCountryFlag.setImageDrawable(country.getPlainFlag(getActivity()));
         mCountryName.setText(country.getName(getActivity()));
+
+        mLyrics.setText(mSong.getLyrics(getActivity()));
     }
 
     private void showSongData() {
@@ -138,7 +141,7 @@ public class SongFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mQuery = "Eurovision" + " " + mSong.getYear() + " " + mSong.getTitle();
+            mQuery = "Eurovision Song Contest" + " " + mSong.getYear() + " " + mSong.getTitle() + " " + mSong.getArtist().getName() + " LIVE";
         }
 
         @Override
@@ -148,8 +151,12 @@ public class SongFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            YoutubeManager youtubeManager = new YoutubeManager(getActivity());
-            mVideoId = youtubeManager.searchFirst(mQuery);
+            if (mSong.getVideoId() != null) {
+                mVideoId = mSong.getVideoId();
+            } else {
+                YoutubeManager youtubeManager = new YoutubeManager(getActivity());
+                mVideoId = youtubeManager.searchFirst(mQuery);
+            }
             return null;
         }
 

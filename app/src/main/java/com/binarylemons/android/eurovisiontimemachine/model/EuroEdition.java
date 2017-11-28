@@ -12,9 +12,6 @@ import com.binarylemons.android.eurovisiontimemachine.database.RoEuroEdition;
 
 public class EuroEdition {
 
-    public enum ContestType {ONLY_FINAL, WITH_SEMIFINALS};
-    public enum WinnerType {SINGLE_WINNER, TRIPLE_WINNER};
-
     private String mYear;
     private EuroCountry mHostCountry;
     private EuroCity mHostCity;

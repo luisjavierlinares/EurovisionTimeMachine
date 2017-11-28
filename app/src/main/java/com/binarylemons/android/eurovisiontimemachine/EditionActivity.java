@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
  * Created by Luis on 16/11/2017.
  */
 
-public class EditionActivity extends SingleFragmentActivity implements SongCallbacks {
+public class EditionActivity extends SingleFragmentWithAdsActivity implements SongCallbacks {
 
     private static final String EXTRA_EDITION_YEAR = "com.binarylemons.android.eurovisiontimemachine.EditionActivity.extra_edition_year";
 
@@ -31,6 +31,6 @@ public class EditionActivity extends SingleFragmentActivity implements SongCallb
     @Override
     public void onSongSelected(String songCode) {
         Intent intent = SongActivity.newIntent(this, songCode);
-        startActivity(intent);
+        startActivityMaybeWithAd(intent);
     }
 }

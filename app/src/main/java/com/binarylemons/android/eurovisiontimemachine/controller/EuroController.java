@@ -9,11 +9,9 @@ import com.binarylemons.android.eurovisiontimemachine.model.EuroCountry;
 import com.binarylemons.android.eurovisiontimemachine.model.EuroEdition;
 import com.binarylemons.android.eurovisiontimemachine.model.EuroRound;
 import com.binarylemons.android.eurovisiontimemachine.model.EuroSong;
-import com.binarylemons.android.eurovisiontimemachine.utils.EuroCountryNameComparator;
-import com.binarylemons.android.eurovisiontimemachine.utils.EuroSongPositionComparator;
+import com.binarylemons.android.eurovisiontimemachine.utils.EuroComparatorUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import io.realm.Realm;
@@ -89,8 +87,7 @@ public class EuroController {
             countries.add(euroCountry);
         }
 
-        EuroCountryNameComparator euroCountryNameComparator = new EuroCountryNameComparator(mContext);
-        Collections.sort(countries, euroCountryNameComparator);
+        countries = EuroComparatorUtils.sortByCountryName(countries, mContext);
 
         return countries;
     }
@@ -146,8 +143,7 @@ public class EuroController {
             }
         }
 
-        EuroSongPositionComparator euroSongPositionComparator = new EuroSongPositionComparator(round);
-        Collections.sort(songs, euroSongPositionComparator);
+        songs = EuroComparatorUtils.sortByPosition(songs, round);
 
         return songs;
     }

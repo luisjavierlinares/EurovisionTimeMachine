@@ -13,6 +13,9 @@
 
     <string name="songs_tab_text">CANCIONES</string>
 
+    <string name="lyrics">Letra</string>
+    <string name="lyrics_not_available">Letra no disponible</string>
+
     <string name="eurovision">Eurovisión</string>
     <string name="on_eurovision">en Eurovisión</string>
     <string name="winner">Ganador</string>

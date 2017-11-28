@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.binarylemons.android.eurovisiontimemachine.model.EuroCountry;
 
-public class EurovisionActivity extends SingleFragmentActivity implements EditionCallbacks, CountryCallbacks {
+public class EurovisionActivity extends SingleFragmentWithAdsActivity implements EditionCallbacks, CountryCallbacks {
 
 
     @Override
@@ -18,12 +18,12 @@ public class EurovisionActivity extends SingleFragmentActivity implements Editio
     @Override
     public void onEditionSelected(String year) {
         Intent intent = EditionActivity.newIntent(this, year);
-        startActivity(intent);
+        startActivityMaybeWithAd(intent);
     }
 
     @Override
     public void onCountrySelected(String countryCode) {
         Intent intent = CountryActivity.newIntent(this, countryCode);
-        startActivity(intent);
+        startActivityMaybeWithAd(intent);
     }
 }

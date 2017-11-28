@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
  * Created by Luis on 17/11/2017.
  */
 
-public class CountryActivity extends SingleFragmentActivity implements SongCallbacks{
+public class CountryActivity extends SingleFragmentWithAdsActivity implements SongCallbacks{
 
     private static final String EXTRA_COUNTRY_CODE = "com.binarylemons.android.eurovisiontimemachine.CountryActivity.extra_country_code";
 
@@ -27,6 +27,6 @@ public class CountryActivity extends SingleFragmentActivity implements SongCallb
     @Override
     public void onSongSelected(String songCode) {
         Intent intent = SongActivity.newIntent(this, songCode);
-        startActivity(intent);
+        startActivityMaybeWithAd(intent);
     }
 }

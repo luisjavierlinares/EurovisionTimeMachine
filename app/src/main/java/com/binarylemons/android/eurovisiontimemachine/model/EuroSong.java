@@ -1,7 +1,13 @@
 package com.binarylemons.android.eurovisiontimemachine.model;
 
-import com.binarylemons.android.eurovisiontimemachine.database.RoEuroSong;
+import android.content.Context;
 
+import com.binarylemons.android.eurovisiontimemachine.R;
+import com.binarylemons.android.eurovisiontimemachine.database.RoEuroSong;
+import com.binarylemons.android.eurovisiontimemachine.utils.TextUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +22,16 @@ public class EuroSong {
     private EuroArtist mArtist;
     private String mTitle;
     private String mLanguage;
+    private String mVideoId;
     private List<EuroEntry> mEntries;
 
-    public EuroSong(String year, EuroCountry country, EuroArtist artist, String title, String language, List<EuroEntry> entries) {
+    public EuroSong(String year, EuroCountry country, EuroArtist artist, String title, String language, String videoId, List<EuroEntry> entries) {
         mYear = year;
         mCountry = country;
         mArtist = artist;
         mTitle = title;
         mLanguage = language;
+        mVideoId = videoId;
         mEntries = entries;
     }
 
@@ -54,6 +62,8 @@ public class EuroSong {
             EuroEntry semi2Entry = new EuroEntry(mYear, EuroRound.SEMIFINAL2, roEuroSong.getSemi2Order(), roEuroSong.getSemi2Position(), roEuroSong.getSemi2Points());
             mEntries.add(semi2Entry);
         }
+
+        mVideoId = roEuroSong.getVideoId();
     }
 
     public String getYear() {
@@ -74,6 +84,21 @@ public class EuroSong {
 
     public String getLanguage() {
         return mLanguage;
+    }
+
+    public String getVideoId() {
+        return mVideoId;
+    }
+
+    public String getLyrics(Context context) {
+        String path = getYear().toString() + "/" + getCountry().getCountryCode() + ".txt";
+        try {
+            InputStream lyricsInputString = context.getAssets().open(path);
+            String lyrics = TextUtils.convertStreamToString(lyricsInputString);
+            return lyrics;
+        } catch (IOException e) { }
+
+        return context.getString(R.string.lyrics_not_available);
     }
 
     public EuroEntry getEntry(EuroRound round){

@@ -17,6 +17,7 @@ public class RoEuroSong extends RealmObject {
     private String artist;
     private String title;
     private String language;
+    private String videoId;
 
     private int finalPosition;
     private int finalPoints;
@@ -74,6 +75,14 @@ public class RoEuroSong extends RealmObject {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
     }
 
     public int getFinalPosition() {
