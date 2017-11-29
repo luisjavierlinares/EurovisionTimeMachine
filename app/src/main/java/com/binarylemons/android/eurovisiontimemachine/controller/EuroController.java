@@ -207,7 +207,6 @@ public class EuroController {
 
         String title = query.getTitle();
 
-
         String orderBy = "year";
         Sort orderType = Sort.DESCENDING;
         if (query.getOrderBy() == EuroQuery.OrderBy.COUNTRY) {

@@ -34,8 +34,9 @@
     <string name="search_all">Todos</string>
     <string name="search_none">Ninguno</string>
     <string name="search_any">Cualquier</string>
-    <string name="search_several">Varios</string>
+    <string name="search_some">Varios</string>
     <string name="search_country_any">Cualquier pais</string>
+    <string name="search_country_some">Varios países</string>
     <string name="search_year_any">Cualquier año</string>
     <string name="search_artist_hint">Cualquier artista</string>
     <string name="search_song_hint">Cualquier canción</string>
@@ -47,6 +48,7 @@
     </string-array>
 
     <string name="search">BUSCAR</string>
+    <string name="ok">OK</string>
     <string name="cancel">CANCELAR</string>
 
     <string name="country_name_ue">Unión Europea</string>

@@ -20,7 +20,7 @@
             android:id="@+id/search_country_flag"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_gravity="left|center_vertical"
+            android:layout_gravity="center_horizontal|center_vertical"
             android:background="@color/colorBackgroundCard"
             android:src="@drawable/ic_plainflag_ue"/>
 
@@ -30,6 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
+            android:minWidth="80dp"
+            android:maxWidth="80dp"
             android:textColor="@color/black"
             tools:text="Friend name"/>
 
@@ -41,7 +43,7 @@
         android:layout_height="64dp"
         android:src="@drawable/ic_action_done"
         android:paddingLeft="16dp"
-        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_gravity="right|center_vertical"
         android:tint="@color/colorAccent"/>
 
 </LinearLayout>

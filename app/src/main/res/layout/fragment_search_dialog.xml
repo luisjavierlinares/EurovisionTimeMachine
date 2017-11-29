@@ -19,7 +19,7 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/search_year"
+            android:id="@+id/search_years"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
