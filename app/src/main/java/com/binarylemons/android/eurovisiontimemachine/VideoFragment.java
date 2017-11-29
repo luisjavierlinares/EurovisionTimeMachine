@@ -1,5 +1,6 @@
 package com.binarylemons.android.eurovisiontimemachine;
 
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -43,7 +44,6 @@ public class VideoFragment extends YouTubePlayerSupportFragment implements YouTu
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setRetainInstance(true);
         mUrl = getArguments().getString(ARG_URL);
         mTime = getArguments().getInt(ARG_TIME);
     }
@@ -53,7 +53,13 @@ public class VideoFragment extends YouTubePlayerSupportFragment implements YouTu
         mPlayer = youTubePlayer;
         mPlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
 
-        int orientation = getResources().getConfiguration().orientation;
+        int orientation = Configuration.ORIENTATION_PORTRAIT;
+
+        Activity activity = getActivity();
+        if (activity != null) {
+            orientation = getResources().getConfiguration().orientation;
+        }
+
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             mPlayer.setFullscreen(true);
             mPlayer.setShowFullscreenButton(false);

@@ -7,6 +7,7 @@ import com.binarylemons.android.eurovisiontimemachine.database.RoEuroEdition;
 import com.binarylemons.android.eurovisiontimemachine.database.RoEuroSong;
 import com.binarylemons.android.eurovisiontimemachine.model.EuroCountry;
 import com.binarylemons.android.eurovisiontimemachine.model.EuroEdition;
+import com.binarylemons.android.eurovisiontimemachine.model.EuroQuery;
 import com.binarylemons.android.eurovisiontimemachine.model.EuroRound;
 import com.binarylemons.android.eurovisiontimemachine.model.EuroSong;
 import com.binarylemons.android.eurovisiontimemachine.utils.EuroComparatorUtils;
@@ -14,7 +15,9 @@ import com.binarylemons.android.eurovisiontimemachine.utils.EuroComparatorUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Case;
 import io.realm.Realm;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
@@ -41,7 +44,7 @@ public class EuroController {
         init();
     }
 
-    private void init(){
+    private void init() {
 
     }
 
@@ -50,8 +53,8 @@ public class EuroController {
 
         Realm realm = Realm.getDefaultInstance();
 
-        RealmResults<RoEuroEdition> roEuroEditions =    realm.where(RoEuroEdition.class)
-                                                        .findAllSorted("year", Sort.DESCENDING);
+        RealmResults<RoEuroEdition> roEuroEditions = realm.where(RoEuroEdition.class)
+                .findAllSorted("year", Sort.DESCENDING);
 
         for (RoEuroEdition roEuroEdition : roEuroEditions) {
             EuroEdition euroEdition = new EuroEdition(roEuroEdition);
@@ -64,12 +67,12 @@ public class EuroController {
     public EuroEdition getEdition(String year) {
         Realm realm = Realm.getDefaultInstance();
 
-        RoEuroEdition roEuroEdition =   realm.where(RoEuroEdition.class)
-                                        .equalTo("year", Integer.parseInt(year))
-                                        .findFirst();
+        RoEuroEdition roEuroEdition = realm.where(RoEuroEdition.class)
+                .equalTo("year", Integer.parseInt(year))
+                .findFirst();
 
         if (roEuroEdition != null) {
-           return new EuroEdition(roEuroEdition);
+            return new EuroEdition(roEuroEdition);
         }
 
         return null;
@@ -87,7 +90,7 @@ public class EuroController {
             countries.add(euroCountry);
         }
 
-        countries = EuroComparatorUtils.sortByCountryName(countries, mContext);
+        countries = EuroComparatorUtils.sortCountryByCountryName(countries, mContext);
 
         return countries;
     }
@@ -95,7 +98,7 @@ public class EuroController {
     public EuroCountry getCountry(String countryCode) {
         Realm realm = Realm.getDefaultInstance();
 
-        RoEuroCountry roEuroCountry =   realm.where(RoEuroCountry.class)
+        RoEuroCountry roEuroCountry = realm.where(RoEuroCountry.class)
                 .equalTo("countryCode", countryCode)
                 .findFirst();
 
@@ -111,9 +114,9 @@ public class EuroController {
 
         Realm realm = Realm.getDefaultInstance();
 
-        RealmResults<RoEuroSong> roEuroSongs =  realm.where(RoEuroSong.class)
-                                                .equalTo("year", Integer.parseInt(edition.getYear()))
-                                                .findAll();
+        RealmResults<RoEuroSong> roEuroSongs = realm.where(RoEuroSong.class)
+                .equalTo("year", Integer.parseInt(edition.getYear()))
+                .findAll();
 
         for (RoEuroSong roEuroSong : roEuroSongs) {
             EuroSong euroSong = new EuroSong(roEuroSong);
@@ -128,9 +131,9 @@ public class EuroController {
 
         Realm realm = Realm.getDefaultInstance();
 
-        RealmResults<RoEuroSong> roEuroSongs =  realm.where(RoEuroSong.class)
-                                                .equalTo("year", Integer.parseInt(edition.getYear()))
-                                                .findAll();
+        RealmResults<RoEuroSong> roEuroSongs = realm.where(RoEuroSong.class)
+                .equalTo("year", Integer.parseInt(edition.getYear()))
+                .findAll();
 
         for (RoEuroSong roEuroSong : roEuroSongs) {
             EuroSong euroSong = new EuroSong(roEuroSong);
@@ -143,7 +146,7 @@ public class EuroController {
             }
         }
 
-        songs = EuroComparatorUtils.sortByPosition(songs, round);
+        songs = EuroComparatorUtils.sortSongByPosition(songs, round);
 
         return songs;
     }
@@ -153,7 +156,7 @@ public class EuroController {
 
         Realm realm = Realm.getDefaultInstance();
 
-        RealmResults<RoEuroSong> roEuroSongs =  realm.where(RoEuroSong.class)
+        RealmResults<RoEuroSong> roEuroSongs = realm.where(RoEuroSong.class)
                 .equalTo("country", country.getCountryCode().toString())
                 .findAllSorted("year", Sort.DESCENDING);
 
@@ -168,7 +171,7 @@ public class EuroController {
     public EuroSong getSong(String songCode) {
         Realm realm = Realm.getDefaultInstance();
 
-        RoEuroSong roEuroSong =   realm.where(RoEuroSong.class)
+        RoEuroSong roEuroSong = realm.where(RoEuroSong.class)
                 .equalTo("songCode", songCode)
                 .findFirst();
 
@@ -177,5 +180,77 @@ public class EuroController {
         }
 
         return null;
+    }
+
+    public List<EuroSong> search(EuroQuery query) {
+        List<EuroSong> songs = new ArrayList<>();
+
+        Realm realm = Realm.getDefaultInstance();
+
+        List<EuroEdition> editions = query.getEditions();
+        Integer[] years = new Integer[query.getEditions().size()];
+        int i = 0;
+        for (EuroEdition edition : editions) {
+            years[i] = Integer.parseInt(edition.getYear());
+            i++;
+        }
+
+        List<EuroCountry> countries = query.getCountries();
+        String[] countryNames = new String[query.getCountries().size()];
+        i = 0;
+        for (EuroCountry country : countries) {
+            countryNames[i] = country.getCountryCode().toString();
+            i++;
+        }
+
+        String artist = query.getArtist();
+
+        String title = query.getTitle();
+
+
+        String orderBy = "year";
+        Sort orderType = Sort.DESCENDING;
+        if (query.getOrderBy() == EuroQuery.OrderBy.COUNTRY) {
+            orderBy = "country";
+            orderType = Sort.DESCENDING;
+        } else if (query.getOrderBy() == EuroQuery.OrderBy.POSITION) {
+            orderBy = "finalPosition";
+            orderType = Sort.ASCENDING;
+        }
+
+        RealmQuery<RoEuroSong> realmQuery = realm.where(RoEuroSong.class);
+
+        if (years.length > 0) {
+            realmQuery.in("year", years);
+        }
+
+        if (countryNames.length > 0) {
+            realmQuery.in("country", countryNames);
+        }
+
+        if (artist != null) {
+            realmQuery.contains("artist", artist, Case.INSENSITIVE);
+        }
+
+        if (title != null) {
+            realmQuery.contains("title", title, Case.INSENSITIVE);
+        }
+
+        RealmResults<RoEuroSong> roEuroSongs = realmQuery.findAllSorted(orderBy, orderType);
+
+        for (RoEuroSong roEuroSong : roEuroSongs) {
+            EuroSong euroSong = new EuroSong(roEuroSong);
+            songs.add(euroSong);
+        }
+
+        if (query.getOrderBy() == EuroQuery.OrderBy.COUNTRY) {
+            songs = EuroComparatorUtils.sortSongByCountryName(songs, mContext);
+        }
+
+        if (query.getOrderBy() == EuroQuery.OrderBy.POSITION) {
+            songs = EuroComparatorUtils.sortSongByFinalPosition(songs);
+        }
+
+        return songs;
     }
 }

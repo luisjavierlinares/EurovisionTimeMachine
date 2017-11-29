@@ -64,7 +64,6 @@ public class EditionSongsFragment extends Fragment {
         } else {
             throw new RuntimeException(context.toString() + "must implement SongCallbacks)");
         }
-
     }
 
     @Override
@@ -130,7 +129,7 @@ public class EditionSongsFragment extends Fragment {
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindEditionSong(EuroSong song) {
+        public void bindSong(EuroSong song) {
             mSong = song;
             EuroEntry entry = mSong.getEntry(mRound);
             mPosition.setText(String.valueOf(entry.getPosition()));
@@ -168,7 +167,7 @@ public class EditionSongsFragment extends Fragment {
         @Override
         public void onBindViewHolder(EditionSongHolder holder, int position) {
             EuroSong song = mSongs.get(position);
-            holder.bindEditionSong(song);
+            holder.bindSong(song);
         }
 
         @Override

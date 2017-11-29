@@ -6,6 +6,7 @@
              android:background="@color/colorBackgroundList">
 
     <LinearLayout
+        android:id="@+id/search_song_no_song"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"

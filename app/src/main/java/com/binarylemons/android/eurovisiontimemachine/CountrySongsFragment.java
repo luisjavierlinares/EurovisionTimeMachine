@@ -126,7 +126,7 @@ public class CountrySongsFragment extends Fragment {
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindCountrySong(EuroSong song) {
+        public void bindSong(EuroSong song) {
             mSong = song;
             EuroEdition edition = mController.getEdition(mSong.getYear());
             mEditionImage.setImageDrawable(edition.getEuroFlag(getActivity()));
@@ -174,7 +174,7 @@ public class CountrySongsFragment extends Fragment {
         @Override
         public void onBindViewHolder(CountrySongHolder holder, int position) {
             EuroSong song = mSongs.get(position);
-            holder.bindCountrySong(song);
+            holder.bindSong(song);
         }
 
         @Override

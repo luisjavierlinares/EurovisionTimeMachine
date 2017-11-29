@@ -1,5 +1,6 @@
 package com.binarylemons.android.eurovisiontimemachine;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -38,16 +39,26 @@ public class SongFragment extends Fragment {
 
     private int mCurrentTime;
 
-    @BindView(R.id.toolbar) Toolbar mToolbar;
-    @BindView(R.id.video_player_frame) FrameLayout mPlayerFrame;
-    @BindView(R.id.song_data) View mSongView;
-    @BindView(R.id.song_edition_image) ImageView mEditionFlag;
-    @BindView(R.id.song_edition_year) TextView mEditionYear;
-    @BindView(R.id.song_title) TextView mTitle;
-    @BindView(R.id.song_artist) TextView mArtist;
-    @BindView(R.id.song_country_flag) ImageView mCountryFlag;
-    @BindView(R.id.song_country_name) TextView mCountryName;
-    @BindView(R.id.song_lyrics) TextView mLyrics;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.video_player_frame)
+    FrameLayout mPlayerFrame;
+    @BindView(R.id.song_data)
+    View mSongView;
+    @BindView(R.id.song_edition_image)
+    ImageView mEditionFlag;
+    @BindView(R.id.song_edition_year)
+    TextView mEditionYear;
+    @BindView(R.id.song_title)
+    TextView mTitle;
+    @BindView(R.id.song_artist)
+    TextView mArtist;
+    @BindView(R.id.song_country_flag)
+    ImageView mCountryFlag;
+    @BindView(R.id.song_country_name)
+    TextView mCountryName;
+    @BindView(R.id.song_lyrics)
+    TextView mLyrics;
 
     private VideoFragment mVideoFragment;
 
@@ -166,8 +177,11 @@ public class SongFragment extends Fragment {
             mVideoFragment = VideoFragment.newInstance(mVideoId, mCurrentTime);
             mVideoFragment.initialize(YoutubeManager.YOUTUBE_API_KEY, mVideoFragment);
 
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction().add(R.id.video_player_frame, mVideoFragment).commit();
+            Activity activity = getActivity();
+            if (activity != null) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().add(R.id.video_player_frame, mVideoFragment).commit();
+            }
 
             showSongData();
         }

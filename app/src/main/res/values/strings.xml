@@ -26,6 +26,29 @@
     <string name="points">points</string>
     <string name="did_not_qualify">Did not qualify for the final</string>
 
+    <string name="search_country">Country:</string>
+    <string name="search_artist">Artist:</string>
+    <string name="search_song">Song:</string>
+    <string name="search_year">Year:</string>
+    <string name="search_order_by">Order by:</string>
+    <string name="search_all">All</string>
+    <string name="search_none">None</string>
+    <string name="search_any">Any</string>
+    <string name="search_several">Several</string>
+    <string name="search_country_any">Any country</string>
+    <string name="search_year_any">Any year</string>
+    <string name="search_artist_hint">Any artist</string>
+    <string name="search_song_hint">Any song</string>
+
+    <string-array name="search_order_by">
+        <item>Year</item>
+        <item>Country</item>
+        <item>Position</item>
+    </string-array>
+
+    <string name="search">SEARCH</string>
+    <string name="cancel">CANCEL</string>
+
     <string name="country_name_ue">European Union</string>
     <string name="country_name_alb">Albania</string>
     <string name="country_name_and">Andorra</string>
@@ -57,7 +80,7 @@
     <string name="country_name_lva">Latvia</string>
     <string name="country_name_ltu">Lithuania</string>
     <string name="country_name_lux">Luxembourg</string>
-    <string name="country_name_mkd">Republic of Macedonia</string>
+    <string name="country_name_mkd">F.Y.R Macedonia</string>
     <string name="country_name_mlt">Malta</string>
     <string name="country_name_mda">Moldova</string>
     <string name="country_name_mco">Monaco</string>

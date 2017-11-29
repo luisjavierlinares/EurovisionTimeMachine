@@ -16,14 +16,28 @@ import java.util.List;
 
 public class EuroComparatorUtils {
 
-    public static List<EuroCountry> sortByCountryName(List<EuroCountry> countries, Context context) {
+    public static List<EuroCountry> sortCountryByCountryName(List<EuroCountry> countries, Context context) {
         EuroCountryNameComparator euroCountryNameComparator = new EuroCountryNameComparator(context);
         Collections.sort(countries, euroCountryNameComparator);
 
         return countries;
     }
 
-    public static List<EuroSong> sortByPosition(List<EuroSong> songs, EuroRound round) {
+    public static List<EuroSong> sortSongByFinalPosition(List<EuroSong> songs) {
+        EuroSongFinalPositionComparator euroSongFinalPositionComparator = new EuroSongFinalPositionComparator();
+        Collections.sort(songs, euroSongFinalPositionComparator);
+
+        return songs;
+    }
+
+    public static List<EuroSong> sortSongByCountryName(List<EuroSong> songs, Context context) {
+        EuroSongCountryComparator euroSongCountryComparator = new EuroSongCountryComparator(context);
+        Collections.sort(songs, euroSongCountryComparator);
+
+        return songs;
+    }
+
+    public static List<EuroSong> sortSongByPosition(List<EuroSong> songs, EuroRound round) {
         EuroSongPositionComparator euroSongPositionComparator = new EuroSongPositionComparator(round);
         Collections.sort(songs, euroSongPositionComparator);
 
@@ -43,6 +57,40 @@ public class EuroComparatorUtils {
             String s1 = o1.getName(mContext);
             String s2 = o2.getName(mContext);
             return s1.compareToIgnoreCase(s2);
+        }
+    }
+
+    private static class EuroSongCountryComparator implements Comparator<EuroSong> {
+
+        private Context mContext;
+
+        public EuroSongCountryComparator(Context context) {
+            mContext = context;
+        }
+
+        @Override
+        public int compare(EuroSong o1, EuroSong o2) {
+            String s1 = o1.getCountry().getName(mContext);
+            String s2 = o2.getCountry().getName(mContext);
+            return s1.compareToIgnoreCase(s2);
+        }
+    }
+
+    private static class EuroSongFinalPositionComparator implements Comparator<EuroSong> {
+
+        @Override
+        public int compare(EuroSong o1, EuroSong o2) {
+            if (o1.getFinalEntry() == null) {
+                return 1;
+            }
+
+            if (o2.getFinalEntry() == null) {
+                return -1;
+            }
+
+            Integer i1 = o1.getFinalEntry().getPosition();
+            Integer i2 = o2.getFinalEntry().getPosition();
+            return i1.compareTo(i2);
         }
     }
 
