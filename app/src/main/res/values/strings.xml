@@ -36,8 +36,9 @@
     <string name="search_any">Any</string>
     <string name="search_some">Some</string>
     <string name="search_country_any">Any country</string>
-    <string name="search_country_some">Some country</string>
+    <string name="search_country_some">Some countries</string>
     <string name="search_year_any">Any year</string>
+    <string name="search_year_some">Some years</string>
     <string name="search_artist_hint">Any artist</string>
     <string name="search_song_hint">Any song</string>
 

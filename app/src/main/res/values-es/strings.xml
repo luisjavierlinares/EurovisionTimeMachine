@@ -38,6 +38,7 @@
     <string name="search_country_any">Cualquier pais</string>
     <string name="search_country_some">Varios países</string>
     <string name="search_year_any">Cualquier año</string>
+    <string name="search_year_some">Varios años</string>
     <string name="search_artist_hint">Cualquier artista</string>
     <string name="search_song_hint">Cualquier canción</string>
 

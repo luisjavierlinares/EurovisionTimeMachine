@@ -48,8 +48,8 @@ public class SearchSelectCountriesFragment extends DialogFragment {
     public static SearchSelectCountriesFragment newInstance(List<EuroCountry> countries) {
         Bundle args = new Bundle();
 
-        ArrayList<String> selectedCountries = countriesToCodes(countries);
-        args.putStringArrayList(ARGS_SELECTED_COUNTRIES, selectedCountries);
+        ArrayList<String> countryCodes = countriesToCodes(countries);
+        args.putStringArrayList(ARGS_SELECTED_COUNTRIES, countryCodes);
 
         SearchSelectCountriesFragment fragment = new SearchSelectCountriesFragment();
         fragment.setArguments(args);
@@ -68,8 +68,8 @@ public class SearchSelectCountriesFragment extends DialogFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        ArrayList<String> selectedCountries = countriesToCodes(mSelectedCountries);
-        outState.putStringArrayList(KEY_SELECTED_COUNTRIES, selectedCountries);
+        ArrayList<String> countryCodes = countriesToCodes(mSelectedCountries);
+        outState.putStringArrayList(KEY_SELECTED_COUNTRIES, countryCodes);
     }
 
 
@@ -95,13 +95,13 @@ public class SearchSelectCountriesFragment extends DialogFragment {
     }
 
     private void restoreInstanceState(Bundle savedInstanceState) {
-        ArrayList<String> selectedCountries = savedInstanceState.getStringArrayList(KEY_SELECTED_COUNTRIES);
-        mSelectedCountries = codesToCountry(selectedCountries);
+        ArrayList<String> countryCodes = savedInstanceState.getStringArrayList(KEY_SELECTED_COUNTRIES);
+        mSelectedCountries = codesToCountry(countryCodes);
     }
 
     private void restoreArguments(Bundle args) {
-        ArrayList<String> selectedCountries = args.getStringArrayList(ARGS_SELECTED_COUNTRIES);
-        mSelectedCountries = codesToCountry(selectedCountries);
+        ArrayList<String> countryCodes = args.getStringArrayList(ARGS_SELECTED_COUNTRIES);
+        mSelectedCountries = codesToCountry(countryCodes);
     }
 
     private void updateUi() {
@@ -162,9 +162,9 @@ public class SearchSelectCountriesFragment extends DialogFragment {
 
         Intent intent = new Intent();
 
-        ArrayList<String> selectedCountries = countriesToCodes(mSelectedCountries);
+        ArrayList<String> countryCodes = countriesToCodes(mSelectedCountries);
 
-        intent.putExtra(EXTRA_SELECTED_COUNTRIES, selectedCountries);
+        intent.putExtra(EXTRA_SELECTED_COUNTRIES, countryCodes);
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
     }
 

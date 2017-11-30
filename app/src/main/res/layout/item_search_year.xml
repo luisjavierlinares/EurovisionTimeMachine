@@ -41,7 +41,7 @@
         android:layout_height="64dp"
         android:src="@drawable/ic_action_done"
         android:paddingLeft="16dp"
-        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_gravity="center_horizontal|top"
         android:tint="@color/colorAccent"/>
 
 </LinearLayout>

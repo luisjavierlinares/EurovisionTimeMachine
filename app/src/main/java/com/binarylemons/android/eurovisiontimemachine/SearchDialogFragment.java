@@ -20,9 +20,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.binarylemons.android.eurovisiontimemachine.model.EuroCountry;
+import com.binarylemons.android.eurovisiontimemachine.model.EuroEdition;
 import com.binarylemons.android.eurovisiontimemachine.model.EuroQuery;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,8 +43,6 @@ public class SearchDialogFragment extends DialogFragment {
     private static final String DIALOG_SELECT_YEARS = "com.binarylemons.android.eurovisiontimemachine.SearchDialogFragment.DIALOG_SELECT_YEARS";
     private static final String DIALOG_SELECT_COUNTRIES = "com.binarylemons.android.eurovisiontimemachine.SearchDialogFragment.DIALOG_SELECT_COUNTRIES";
 
-    private static final String KEY_SELECTED_YEARS = "com.binarylemons.android.eurovisiontimemachine.SearchDialogFragment.KEY_SELECTED_YEARS";
-    private static final String KEY_SELECTED_COUNTRIES = "com.binarylemons.android.eurovisiontimemachine.SearchDialogFragment.KEY_SELECTED_COUNTRIES";
     private static final String KEY_QUERY = "com.binarylemons.android.eurovisiontimemachine.SearchDialogFragment.KEY_QUERY";
 
 
@@ -123,6 +121,16 @@ public class SearchDialogFragment extends DialogFragment {
         } else {
             mCountries.setText(getString(R.string.search_country_some));
         }
+
+        List<EuroEdition> editions = mQuery.getEditions();
+
+        if (editions.isEmpty()) {
+            mYears.setText(getString(R.string.search_year_any));
+        } else if (editions.size() == 1) {
+            mYears.setText(editions.get(0).getYear());
+        } else {
+            mYears.setText(getString(R.string.search_year_some));
+        }
     }
 
     private AlertDialog createDialog(View view) {
@@ -160,7 +168,10 @@ public class SearchDialogFragment extends DialogFragment {
 
     @OnClick(R.id.search_years)
     public void onSelectYearsClicked() {
-
+        FragmentManager fragmentManager = getFragmentManager();
+        SearchSelectYearsFragment selectYearsFragment = SearchSelectYearsFragment.newInstance(mQuery.getEditions());
+        selectYearsFragment.setTargetFragment(SearchDialogFragment.this, REQUEST_YEARS);
+        selectYearsFragment.show(fragmentManager, DIALOG_SELECT_YEARS);
     }
 
     @OnClick(R.id.search_countries)
@@ -210,10 +221,18 @@ public class SearchDialogFragment extends DialogFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK) return;
+
         if (requestCode == REQUEST_COUNTRIES) {
             List<EuroCountry> countries = SearchSelectCountriesFragment.getSelectedCountries(data);
             mQuery.setCountries(countries);
             updateUi();
         }
+
+        if (requestCode == REQUEST_YEARS) {
+            List<EuroEdition> years = SearchSelectYearsFragment.getSelectedEditions(data, getActivity());
+            mQuery.setEditions(years);
+            updateUi();
+        }
+
     }
 }
