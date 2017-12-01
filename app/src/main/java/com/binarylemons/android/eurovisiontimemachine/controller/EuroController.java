@@ -228,11 +228,11 @@ public class EuroController {
         }
 
         if (artist != null) {
-            realmQuery.contains("artist", artist, Case.INSENSITIVE);
+            realmQuery.contains("normalizedArtist", artist, Case.INSENSITIVE);
         }
 
         if (title != null) {
-            realmQuery.contains("title", title, Case.INSENSITIVE);
+            realmQuery.contains("normalizedTitle", title, Case.INSENSITIVE);
         }
 
         RealmResults<RoEuroSong> roEuroSongs = realmQuery.findAllSorted(orderBy, orderType);

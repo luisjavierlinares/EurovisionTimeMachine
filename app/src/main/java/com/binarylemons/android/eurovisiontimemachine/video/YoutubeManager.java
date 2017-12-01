@@ -74,9 +74,7 @@ public class YoutubeManager {
                     + e.getDetails().getMessage());
         } catch (IOException e) {
             System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
+        } catch (Throwable t) { }
 
         return "";
     }

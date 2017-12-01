@@ -1,5 +1,7 @@
 package com.binarylemons.android.eurovisiontimemachine.database;
 
+import java.text.Normalizer;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -18,6 +20,9 @@ public class RoEuroSong extends RealmObject {
     private String title;
     private String language;
     private String videoId;
+
+    private String normalizedArtist;
+    private String normalizedTitle;
 
     private int finalPosition;
     private int finalPoints;
@@ -83,6 +88,22 @@ public class RoEuroSong extends RealmObject {
 
     public void setVideoId(String videoId) {
         this.videoId = videoId;
+    }
+
+    public String getNormalizedArtist() {
+        return normalizedArtist;
+    }
+
+    public void setNormalizedArtist(String normalizedArtist){
+        this.normalizedArtist = normalizedArtist;
+    }
+
+    public String getNormalizedTitle() {
+        return normalizedTitle;
+    }
+
+    public void setNormalizedTitle(String normalizedTitle) {
+        this.normalizedTitle = normalizedTitle;
     }
 
     public int getFinalPosition() {

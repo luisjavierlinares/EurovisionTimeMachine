@@ -6,8 +6,10 @@ import com.binarylemons.android.eurovisiontimemachine.R;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.Normalizer;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by Luis on 13/11/2017.
@@ -92,10 +94,28 @@ public class JsonToRealm {
                     }
                 }
             });
+            setSongsNormalizedData();
         } finally {
             if (realm != null) {
                 realm.close();
             }
         }
+    }
+
+    private void setSongsNormalizedData() {
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<RoEuroSong> roEuroSongs = realm.where(RoEuroSong.class).findAll();
+
+        realm.beginTransaction();
+        for (RoEuroSong roEuroSong : roEuroSongs) {
+            String normalizedArtist = Normalizer.normalize(roEuroSong.getArtist(), Normalizer.Form.NFD)
+                    .replaceAll("[^\\p{ASCII}]", "");;
+            roEuroSong.setNormalizedArtist(normalizedArtist);
+
+            String normalizedTitle = Normalizer.normalize(roEuroSong.getTitle(), Normalizer.Form.NFD)
+                    .replaceAll("[^\\p{ASCII}]", "");;
+            roEuroSong.setNormalizedTitle(normalizedTitle);
+        }
+        realm.commitTransaction();
     }
 }

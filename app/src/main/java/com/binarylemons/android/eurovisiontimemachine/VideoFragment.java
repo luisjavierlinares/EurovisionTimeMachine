@@ -79,6 +79,10 @@ public class VideoFragment extends YouTubePlayerSupportFragment implements YouTu
     }
 
     public int getCurrentTime() {
+        if (mPlayer == null) {
+            return 0;
+        }
+
         return mPlayer.getCurrentTimeMillis();
     }
 }
