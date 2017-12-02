@@ -102,6 +102,10 @@ public class JsonToRealm {
         }
     }
 
+    private void importEditionSongsFromJson() {
+
+    }
+
     private void setSongsNormalizedData() {
         Realm realm = Realm.getDefaultInstance();
         RealmResults<RoEuroSong> roEuroSongs = realm.where(RoEuroSong.class).findAll();
