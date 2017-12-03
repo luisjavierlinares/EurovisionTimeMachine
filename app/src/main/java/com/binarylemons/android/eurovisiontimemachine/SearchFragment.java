@@ -109,6 +109,12 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    private void clearSongs() {
+        mSongs = new ArrayList<>();
+        mSearchSongAdapter = new SearchSongAdapter(mSongs);
+        mRecyclerView.setAdapter(mSearchSongAdapter);
+    }
+
     public class SearchSongHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
@@ -194,6 +200,7 @@ public class SearchFragment extends Fragment {
     }
 
     public void searchSongs(EuroQuery query) {
+        clearSongs();
         new SearchTask().execute(query);
     }
 

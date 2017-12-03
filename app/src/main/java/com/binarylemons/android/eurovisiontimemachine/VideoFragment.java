@@ -21,6 +21,16 @@ public class VideoFragment extends YouTubePlayerSupportFragment implements YouTu
     private String mUrl;
     private int mTime;
 
+    public static VideoFragment newInstance() {
+        Bundle arguments = new Bundle();
+        arguments.putString(ARG_URL, "");
+        arguments.putInt(ARG_TIME, 0);
+
+        VideoFragment fragment = new VideoFragment();
+        fragment.setArguments(arguments);
+        return fragment;
+    }
+
     public static VideoFragment newInstance(String url) {
         Bundle arguments = new Bundle();
         arguments.putString(ARG_URL, url);
