@@ -13,9 +13,11 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
+import com.google.api.services.youtube.model.VideoListResponse;
 import com.google.common.io.BaseEncoding;
 
 import java.io.IOException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import android.content.pm.Signature;
@@ -77,6 +79,41 @@ public class YoutubeManager {
         } catch (Throwable t) { }
 
         return "";
+    }
+
+    public boolean exists(String videoId) {
+        try {
+            youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
+                public void initialize(HttpRequest request) throws IOException {
+                    String packageName = mContext.getPackageName();
+                    String SHA1 = getSHA1(packageName);
+
+                    request.getHeaders().set("X-Android-Package", packageName);
+                    request.getHeaders().set("X-Android-Cert",SHA1);
+                }
+            }).setApplicationName(mContext.getPackageName()).build();
+
+            YouTube.Videos.List listVideosRequest = youtube.videos().list("statistics");
+            listVideosRequest.setId(videoId);
+            listVideosRequest.setKey(YOUTUBE_API_KEY);
+            VideoListResponse listResponse = listVideosRequest.execute();
+
+            int size = listResponse.getItems().size();
+
+            if (size > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (GoogleJsonResponseException e) {
+            System.err.println("There was a service error: " + e.getDetails().getCode() + " : "
+                    + e.getDetails().getMessage());
+        } catch (IOException e) {
+            System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
+        } catch (Throwable t) { }
+
+        return false;
     }
 
     private String getSHA1(String packageName){

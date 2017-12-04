@@ -162,12 +162,17 @@ public class SongFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            if (mSong.getVideoId() != null) {
+            YoutubeManager youtubeManager = new YoutubeManager(getActivity());
+
+            // if a video id has been manually established and it exists we show it
+            if ((mSong.getVideoId() != null) && (youtubeManager.exists(mSong.getVideoId()))) {
                 mVideoId = mSong.getVideoId();
-            } else {
-                YoutubeManager youtubeManager = new YoutubeManager(getActivity());
-                mVideoId = youtubeManager.searchFirst(mQuery);
+                return null;
             }
+
+            // else we find the video
+            mVideoId = youtubeManager.searchFirst(mQuery);
+
             return null;
         }
 
