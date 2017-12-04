@@ -87,7 +87,6 @@ public class SongFragment extends Fragment {
 
         mController = EuroController.get(getActivity());
         mSong = mController.getSong(songCode);
-        mVideoFragment = VideoFragment.newInstance();
     }
 
 
