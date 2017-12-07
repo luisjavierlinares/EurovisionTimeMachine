@@ -1,5 +1,10 @@
 package com.binarylemons.android.eurovisiontimemachine.database;
 
+import android.content.Context;
+
+import com.binarylemons.android.eurovisiontimemachine.model.EuroSong;
+import com.binarylemons.android.eurovisiontimemachine.video.YoutubeManager;
+
 import java.text.Normalizer;
 
 import io.realm.RealmObject;
@@ -176,5 +181,37 @@ public class RoEuroSong extends RealmObject {
 
     public void setSemi2Order(int semi2Order) {
         this.semi2Order = semi2Order;
+    }
+
+    public String getString(Context context) {
+        YoutubeManager youtubeManager = new YoutubeManager(context);
+
+        String thisVideoId = videoId;
+        if (thisVideoId == null) {
+            EuroSong song = new EuroSong(this);
+            String query = youtubeManager.generateSongQuery(song);
+            thisVideoId = youtubeManager.searchFirst(query);
+        }
+
+        String out = "  {" + "\n" +
+                "    \"songCode\" : " + "\"" + songCode + "\"" + ",\n" +
+                "    \"year\" : " + year + ",\n" +
+                "    \"country\" : " + "\"" + country + "\"" + ",\n" +
+                "    \"artist\" : " + "\"" + artist + "\"" + ",\n" +
+                "    \"title\" : " + "\"" + title + "\"" + ",\n" +
+                "    \"language\" : " + "\"" + language + "\"" + ",\n" +
+                "    \"videoId\" : " + "\"" + thisVideoId + "\"" + ",\n" +
+                "    \"finalPosition\" : " + finalPosition + ",\n" +
+                "    \"finalPoints\" : " + finalPoints + ",\n" +
+                "    \"finalOrder\" : " + finalOrder + ",\n" +
+                "    \"semi1Position\" : " + semi1Position + ",\n" +
+                "    \"semi1Points\" : " + semi1Points + ",\n" +
+                "    \"semi1Order\" : " + semi1Order + ",\n" +
+                "    \"semi2Position\" : " + semi2Position + ",\n" +
+                "    \"semi2Points\" : " + semi2Points + ",\n" +
+                "    \"semi2Order\" : " + semi2Order + "\n" +
+                "  }," + "\n\n";
+
+        return out;
     }
 }

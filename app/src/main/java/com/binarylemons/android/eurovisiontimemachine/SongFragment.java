@@ -148,11 +148,13 @@ public class SongFragment extends Fragment {
 
         String mQuery;
         String mVideoId;
+        YoutubeManager mYoutubeManager;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mQuery = "Eurovision Song Contest" + " " + mSong.getYear() + " " + mSong.getTitle() + " " + mSong.getArtist().getName() + " LIVE";
+            mYoutubeManager = new YoutubeManager(getActivity());
+            mQuery = mYoutubeManager.generateSongQuery(mSong);
         }
 
         @Override
@@ -162,16 +164,15 @@ public class SongFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            YoutubeManager youtubeManager = new YoutubeManager(getActivity());
-
+            mController.generateSongsFiles();
             // if a video id has been manually established and it exists we show it
-            if ((mSong.getVideoId() != null) && (youtubeManager.exists(mSong.getVideoId()))) {
+            if ((mSong.getVideoId() != null) && (mYoutubeManager.exists(mSong.getVideoId()))) {
                 mVideoId = mSong.getVideoId();
                 return null;
             }
 
             // else we find the video
-            mVideoId = youtubeManager.searchFirst(mQuery);
+            mVideoId = mYoutubeManager.searchFirst(mQuery);
 
             return null;
         }

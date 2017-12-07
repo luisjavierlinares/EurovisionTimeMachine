@@ -3,6 +3,7 @@ package com.binarylemons.android.eurovisiontimemachine.video;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
+import com.binarylemons.android.eurovisiontimemachine.model.EuroSong;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
@@ -20,7 +21,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 import android.content.pm.Signature;
+
 import java.util.List;
 
 /**
@@ -48,7 +51,7 @@ public class YoutubeManager {
                     String SHA1 = getSHA1(packageName);
 
                     request.getHeaders().set("X-Android-Package", packageName);
-                    request.getHeaders().set("X-Android-Cert",SHA1);
+                    request.getHeaders().set("X-Android-Cert", SHA1);
                 }
             }).setApplicationName(mContext.getPackageName()).build();
 
@@ -76,7 +79,9 @@ public class YoutubeManager {
                     + e.getDetails().getMessage());
         } catch (IOException e) {
             System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
-        } catch (Throwable t) { }
+        } catch (Throwable t) {
+            System.err.print(t.getMessage());
+        }
 
         return "";
     }
@@ -89,7 +94,7 @@ public class YoutubeManager {
                     String SHA1 = getSHA1(packageName);
 
                     request.getHeaders().set("X-Android-Package", packageName);
-                    request.getHeaders().set("X-Android-Cert",SHA1);
+                    request.getHeaders().set("X-Android-Cert", SHA1);
                 }
             }).setApplicationName(mContext.getPackageName()).build();
 
@@ -111,18 +116,19 @@ public class YoutubeManager {
                     + e.getDetails().getMessage());
         } catch (IOException e) {
             System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
-        } catch (Throwable t) { }
+        } catch (Throwable t) {
+        }
 
         return false;
     }
 
-    private String getSHA1(String packageName){
+    private String getSHA1(String packageName) {
         try {
             android.content.pm.Signature[] signatures = mContext
                     .getPackageManager()
                     .getPackageInfo(packageName, PackageManager.GET_SIGNATURES).signatures;
 
-            for (Signature signature: signatures) {
+            for (Signature signature : signatures) {
                 MessageDigest md;
                 md = MessageDigest.getInstance("SHA-1");
                 md.update(signature.toByteArray());
@@ -135,4 +141,34 @@ public class YoutubeManager {
         }
         return null;
     }
+
+    public String generateSongQuery(EuroSong song) {
+        String year = song.getYear();
+        String title = song.getTitle();
+        String artist = song.getArtist().getName();
+
+        String queryText = "Eurovision Song Contest" + " " + year + " " + title + " " + artist + " LIVE";
+        queryText = addQueryClues(queryText, song);
+
+        return queryText;
+    }
+
+    private String addQueryClues(String query, EuroSong song) {
+        int year = Integer.parseInt(song.getYear());
+
+        if ((year >= 2000) && (year <= 2003)) {
+            query = query + " 2000ESC2003";
+        }
+
+        if ((year >= 1995) && (year <= 1998)) {
+            query = query + " cafusia";
+        }
+
+        if ((year >= 1990) && (year <= 1992)) {
+            query = query + " cafusia";
+        }
+
+        return query;
+    }
+
 }

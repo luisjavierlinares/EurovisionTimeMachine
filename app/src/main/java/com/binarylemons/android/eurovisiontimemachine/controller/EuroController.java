@@ -252,4 +252,21 @@ public class EuroController {
 
         return songs;
     }
+
+    public String generateSongsFiles() {
+
+        List<EuroSong> songs = new ArrayList<>();
+
+        Realm realm = Realm.getDefaultInstance();
+
+        RealmResults<RoEuroSong> roEuroSongs = realm.where(RoEuroSong.class)
+                .findAll();
+
+        String out = "";
+        for (RoEuroSong roEuroSong : roEuroSongs) {
+            out = out + roEuroSong.getString(mContext);
+        }
+
+        return out;
+    }
 }
