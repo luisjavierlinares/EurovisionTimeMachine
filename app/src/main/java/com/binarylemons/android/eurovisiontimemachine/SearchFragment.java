@@ -113,6 +113,12 @@ public class SearchFragment extends Fragment {
         mSongs = new ArrayList<>();
         mSearchSongAdapter = new SearchSongAdapter(mSongs);
         mRecyclerView.setAdapter(mSearchSongAdapter);
+        mNoSongsView.setVisibility(View.GONE);
+    }
+
+    public void searchSongs(EuroQuery query) {
+        clearSongs();
+        new SearchTask().execute(query);
     }
 
     public class SearchSongHolder extends RecyclerView.ViewHolder
@@ -166,8 +172,7 @@ public class SearchFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            String songCode = mSong.getYear() + mSong.getCountry().getCountryCode();
-            mSongCallbacks.onSongSelected(songCode);
+            mSongCallbacks.onSongSelected(mSong.getSongCode());
         }
     }
 
@@ -197,11 +202,6 @@ public class SearchFragment extends Fragment {
         public int getItemCount() {
             return mSongs.size();
         }
-    }
-
-    public void searchSongs(EuroQuery query) {
-        clearSongs();
-        new SearchTask().execute(query);
     }
 
     private class SearchTask extends AsyncTask<EuroQuery, Void, Void> {

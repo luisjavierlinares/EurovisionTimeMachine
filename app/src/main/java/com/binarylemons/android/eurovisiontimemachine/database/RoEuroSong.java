@@ -24,7 +24,9 @@ public class RoEuroSong extends RealmObject {
     private String artist;
     private String title;
     private String language;
+
     private String videoId;
+    private String secondaryId;
 
     private String normalizedArtist;
     private String normalizedTitle;
@@ -93,6 +95,14 @@ public class RoEuroSong extends RealmObject {
 
     public void setVideoId(String videoId) {
         this.videoId = videoId;
+    }
+
+    public String getSecondaryId() {
+        return secondaryId;
+    }
+
+    public void setSecondaryId(String secondaryId) {
+        this.secondaryId = secondaryId;
     }
 
     public String getNormalizedArtist() {
@@ -186,11 +196,11 @@ public class RoEuroSong extends RealmObject {
     public String getString(Context context) {
         YoutubeManager youtubeManager = new YoutubeManager(context);
 
-        String thisVideoId = videoId;
-        if (thisVideoId == null) {
+        String thisSecondaryId = secondaryId;
+        if ((videoId == null) && (thisSecondaryId == null)) {
             EuroSong song = new EuroSong(this);
             String query = youtubeManager.generateSongQuery(song);
-            thisVideoId = youtubeManager.searchFirst(query);
+            thisSecondaryId = youtubeManager.searchFirst(query);
         }
 
         String out = "  {" + "\n" +
@@ -199,18 +209,26 @@ public class RoEuroSong extends RealmObject {
                 "    \"country\" : " + "\"" + country + "\"" + ",\n" +
                 "    \"artist\" : " + "\"" + artist + "\"" + ",\n" +
                 "    \"title\" : " + "\"" + title + "\"" + ",\n" +
-                "    \"language\" : " + "\"" + language + "\"" + ",\n" +
-                "    \"videoId\" : " + "\"" + thisVideoId + "\"" + ",\n" +
-                "    \"finalPosition\" : " + finalPosition + ",\n" +
-                "    \"finalPoints\" : " + finalPoints + ",\n" +
-                "    \"finalOrder\" : " + finalOrder + ",\n" +
-                "    \"semi1Position\" : " + semi1Position + ",\n" +
-                "    \"semi1Points\" : " + semi1Points + ",\n" +
-                "    \"semi1Order\" : " + semi1Order + ",\n" +
-                "    \"semi2Position\" : " + semi2Position + ",\n" +
-                "    \"semi2Points\" : " + semi2Points + ",\n" +
-                "    \"semi2Order\" : " + semi2Order + "\n" +
-                "  }," + "\n\n";
+                "    \"language\" : " + "\"" + language + "\"" + ",\n";
+
+        if (videoId != null) {
+            out = out + "    \"videoId\" : " + "\"" + videoId + "\"" + ",\n";
+        }
+
+        if (thisSecondaryId != null) {
+            out = out + "    \"secondaryId\" : " + "\"" + thisSecondaryId + "\"" + ",\n";
+        }
+
+        out = out + "    \"finalPosition\" : " + finalPosition + ",\n" +
+                    "    \"finalPoints\" : " + finalPoints + ",\n" +
+                    "    \"finalOrder\" : " + finalOrder + ",\n" +
+                    "    \"semi1Position\" : " + semi1Position + ",\n" +
+                    "    \"semi1Points\" : " + semi1Points + ",\n" +
+                    "    \"semi1Order\" : " + semi1Order + ",\n" +
+                    "    \"semi2Position\" : " + semi2Position + ",\n" +
+                    "    \"semi2Points\" : " + semi2Points + ",\n" +
+                    "    \"semi2Order\" : " + semi2Order + "\n" +
+                    "  }," + "\n\n";
 
         return out;
     }

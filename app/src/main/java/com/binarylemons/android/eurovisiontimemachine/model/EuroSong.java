@@ -17,15 +17,18 @@ import java.util.List;
 
 public class EuroSong {
 
+    private String mSongCode;
     private String mYear;
     private EuroCountry mCountry;
     private EuroArtist mArtist;
     private String mTitle;
     private String mLanguage;
     private String mVideoId;
+    private String mSecondaryId;
     private List<EuroEntry> mEntries;
 
-    public EuroSong(String year, EuroCountry country, EuroArtist artist, String title, String language, String videoId, List<EuroEntry> entries) {
+    public EuroSong(String songCode, String year, EuroCountry country, EuroArtist artist, String title, String language, String videoId, List<EuroEntry> entries) {
+        mSongCode = songCode;
         mYear = year;
         mCountry = country;
         mArtist = artist;
@@ -36,6 +39,8 @@ public class EuroSong {
     }
 
     public EuroSong(RoEuroSong roEuroSong) {
+        mSongCode = roEuroSong.getSongCode();
+
         mYear = String.valueOf(roEuroSong.getYear());
 
         EuroCountry.Code countryCode = EuroCountry.Code.valueOf(roEuroSong.getCountry());
@@ -64,6 +69,11 @@ public class EuroSong {
         }
 
         mVideoId = roEuroSong.getVideoId();
+        mSecondaryId = roEuroSong.getSecondaryId();
+    }
+
+    public String getSongCode() {
+        return mSongCode;
     }
 
     public String getYear() {
@@ -90,8 +100,18 @@ public class EuroSong {
         return mVideoId;
     }
 
+    public String getSecondaryId() {
+        return mSecondaryId;
+    }
+
     public String getLyrics(Context context) {
-        String path = getYear().toString() + "/" + getCountry().getCountryCode() + ".txt";
+        String path;
+        if (mYear.equals("1956")) {
+            path = getYear().toString() + "/" + getCountry().getCountryCode() + String.valueOf(getFinalEntry().getOrder()) + ".txt";
+        } else {
+            path = getYear().toString() + "/" + getCountry().getCountryCode() + ".txt";
+        }
+
         try {
             InputStream lyricsInputString = context.getAssets().open(path);
             String lyrics = TextUtils.convertStreamToString(lyricsInputString);

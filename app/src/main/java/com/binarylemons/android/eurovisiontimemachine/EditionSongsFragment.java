@@ -143,8 +143,7 @@ public class EditionSongsFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            String songCode = mSong.getYear() + mSong.getCountry().getCountryCode();
-            mSongCallbacks.onSongSelected(songCode);
+            mSongCallbacks.onSongSelected(mSong.getSongCode());
         }
     }
 

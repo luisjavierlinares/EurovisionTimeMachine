@@ -25,6 +25,7 @@
         <activity android:name=".CountryActivity">
         </activity>
         <activity android:name=".SongActivity"/>
+
     </application>
 
 </manifest>

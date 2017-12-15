@@ -23,3 +23,14 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keepattributes *Annotation* # Needed by google-api-client
+-keepattributes Signature # Needed by google-api-client 
+
+# Needed by google-api-client to keep generic types and @Key annotations accessed via reflection
+-keepclassmembers class * {
+  @com.google.api.client.util.Key <fields>;
+}
+
+# Needed by Guava (google-api-client)
+-dontwarn sun.misc.Unsafe

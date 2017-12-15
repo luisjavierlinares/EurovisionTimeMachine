@@ -2,6 +2,7 @@ package com.binarylemons.android.eurovisiontimemachine.controller;
 
 import android.content.Context;
 
+import com.binarylemons.android.eurovisiontimemachine.R;
 import com.binarylemons.android.eurovisiontimemachine.database.RoEuroCountry;
 import com.binarylemons.android.eurovisiontimemachine.database.RoEuroEdition;
 import com.binarylemons.android.eurovisiontimemachine.database.RoEuroSong;
@@ -12,8 +13,13 @@ import com.binarylemons.android.eurovisiontimemachine.model.EuroRound;
 import com.binarylemons.android.eurovisiontimemachine.model.EuroSong;
 import com.binarylemons.android.eurovisiontimemachine.utils.EuroComparatorUtils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import io.realm.Case;
 import io.realm.Realm;
@@ -253,20 +259,4 @@ public class EuroController {
         return songs;
     }
 
-    public String generateSongsFiles() {
-
-        List<EuroSong> songs = new ArrayList<>();
-
-        Realm realm = Realm.getDefaultInstance();
-
-        RealmResults<RoEuroSong> roEuroSongs = realm.where(RoEuroSong.class)
-                .findAll();
-
-        String out = "";
-        for (RoEuroSong roEuroSong : roEuroSongs) {
-            out = out + roEuroSong.getString(mContext);
-        }
-
-        return out;
-    }
 }

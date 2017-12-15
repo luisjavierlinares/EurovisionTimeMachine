@@ -9,8 +9,22 @@ import android.content.SharedPreferences;
 
 public class EuroSettings {
 
+    private static final String PREF_PACKAGE_VERSION = "PREF_PACKAGE_VERSION";
     private static final String PREF_VIEWS_SINCE_LAST_AD = "PREF_VIEWS_SINCE_LAST_AD";
     private static final String PREF_TIME_SINCE_LAST_AD = "PREF_TIME_SINCE_LAST_AD";
+
+    public static int getPackageVersion(Context context) {
+        return context.getSharedPreferences(PREF_PACKAGE_VERSION, Context.MODE_PRIVATE)
+                .getInt(PREF_PACKAGE_VERSION, -1);
+    }
+
+    public static void setPackageVersion(Context context, int version) {
+        SharedPreferences sharedPrefs = context.getSharedPreferences(
+                PREF_PACKAGE_VERSION, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putInt(PREF_PACKAGE_VERSION, version);
+        editor.commit();
+    }
 
     public static int getViewsSinceLastAd(Context context) {
         return context.getSharedPreferences(PREF_VIEWS_SINCE_LAST_AD, Context.MODE_PRIVATE)

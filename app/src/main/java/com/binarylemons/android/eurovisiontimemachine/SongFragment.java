@@ -20,6 +20,7 @@ import com.binarylemons.android.eurovisiontimemachine.controller.EuroController;
 import com.binarylemons.android.eurovisiontimemachine.model.EuroCountry;
 import com.binarylemons.android.eurovisiontimemachine.model.EuroEdition;
 import com.binarylemons.android.eurovisiontimemachine.model.EuroSong;
+import com.binarylemons.android.eurovisiontimemachine.utils.JsonFilesGenerator;
 import com.binarylemons.android.eurovisiontimemachine.video.YoutubeManager;
 
 import butterknife.BindView;
@@ -39,26 +40,16 @@ public class SongFragment extends Fragment {
 
     private int mCurrentTime;
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-    @BindView(R.id.video_player_frame)
-    FrameLayout mPlayerFrame;
-    @BindView(R.id.song_data)
-    View mSongView;
-    @BindView(R.id.song_edition_image)
-    ImageView mEditionFlag;
-    @BindView(R.id.song_edition_year)
-    TextView mEditionYear;
-    @BindView(R.id.song_title)
-    TextView mTitle;
-    @BindView(R.id.song_artist)
-    TextView mArtist;
-    @BindView(R.id.song_country_flag)
-    ImageView mCountryFlag;
-    @BindView(R.id.song_country_name)
-    TextView mCountryName;
-    @BindView(R.id.song_lyrics)
-    TextView mLyrics;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.video_player_frame) FrameLayout mPlayerFrame;
+    @BindView(R.id.song_data) View mSongView;
+    @BindView(R.id.song_edition_image) ImageView mEditionFlag;
+    @BindView(R.id.song_edition_year) TextView mEditionYear;
+    @BindView(R.id.song_title) TextView mTitle;
+    @BindView(R.id.song_artist) TextView mArtist;
+    @BindView(R.id.song_country_flag) ImageView mCountryFlag;
+    @BindView(R.id.song_country_name) TextView mCountryName;
+    @BindView(R.id.song_lyrics) TextView mLyrics;
 
     private VideoFragment mVideoFragment;
 
@@ -164,14 +155,22 @@ public class SongFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            mController.generateSongsFiles();
-            // if a video id has been manually established and it exists we show it
+//            JsonFilesGenerator filesGenerator = JsonFilesGenerator.get(getActivity());
+//            filesGenerator.generateSongsFiles();
+//            filesGenerator.generateSongsFilesWithFix();
+            // if a video id has been manually established and it exists we use it
             if ((mSong.getVideoId() != null) && (mYoutubeManager.exists(mSong.getVideoId()))) {
                 mVideoId = mSong.getVideoId();
                 return null;
             }
 
-            // else we find the video
+            // if the primary id does not work we try with the secondary video id
+            if ((mSong.getSecondaryId() != null) && (mYoutubeManager.exists(mSong.getSecondaryId()))) {
+                mVideoId = mSong.getSecondaryId();
+                return null;
+            }
+
+            // else we search the video
             mVideoId = mYoutubeManager.searchFirst(mQuery);
 
             return null;
