@@ -6,6 +6,9 @@ package com.binarylemons.android.eurovisiontimemachine.model;
 
 public class EuroEntry {
 
+    public static final int NULL_POSITION = 99999;
+    public static final int NULL_POINTS = 99999;
+
     private String mYear;
     private EuroRound mRound;
     private int mPosition;
@@ -36,8 +39,22 @@ public class EuroEntry {
         return mPosition;
     }
 
+    public String getPositionString() {
+        if ( mPosition == NULL_POSITION) {
+            return "-";
+        }
+        return String.valueOf(mPosition);
+    }
+
     public int getPoints() {
         return mPoints;
+    }
+
+    public String getPointsString() {
+        if (mPoints == NULL_POINTS) {
+            return "-";
+        }
+        return String.valueOf(mPoints);
     }
 
     public boolean isFinal() {

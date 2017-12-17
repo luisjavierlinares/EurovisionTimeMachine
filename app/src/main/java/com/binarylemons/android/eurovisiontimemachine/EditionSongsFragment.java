@@ -132,12 +132,12 @@ public class EditionSongsFragment extends Fragment {
         public void bindSong(EuroSong song) {
             mSong = song;
             EuroEntry entry = mSong.getEntry(mRound);
-            mPosition.setText(String.valueOf(entry.getPosition()));
+            mPosition.setText(entry.getPositionString());
             mCountryFlag.setImageDrawable(mSong.getCountry().getPlainFlag(getActivity()));
             mCountryName.setText(mSong.getCountry().getName(getActivity()));
             mTitle.setText(mSong.getTitle());
             mArtist.setText(mSong.getArtist().getName());
-            mPoints.setText(String.valueOf(entry.getPoints()));
+            mPoints.setText(entry.getPointsString());
             mPosition.setTextColor(EurovisionUiUtils.getRoundPositionColor(getActivity(), mSong, mRound));
         }
 

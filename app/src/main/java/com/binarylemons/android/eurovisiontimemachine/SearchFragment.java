@@ -156,10 +156,10 @@ public class SearchFragment extends Fragment {
             mCountryName.setText(country.getName(getActivity()));
 
             if (mSong.isClassifiedToFinal()) {
-                mPosition.setText(String.valueOf(mSong.getFinalEntry().getPosition()));
+                mPosition.setText(mSong.getFinalEntry().getPositionString());
                 mPosition.setTextColor(EurovisionUiUtils.getPositionColor(getActivity(), mSong));
                 mPosition.setVisibility(View.VISIBLE);
-                mPoints.setText("(" + mSong.getFinalEntry().getPoints() + " " + getString(R.string.points) + ")");
+                mPoints.setText("(" + mSong.getFinalEntry().getPointsString() + " " + getString(R.string.points) + ")");
                 mPoints.setVisibility(View.VISIBLE);
                 mNotQualified.setVisibility(View.GONE);
             } else {
